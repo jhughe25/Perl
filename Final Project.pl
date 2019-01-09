@@ -2,6 +2,57 @@
 #Group Project
 #Justin Hughes (Unless Otherwise Noted)
 
+#***Disclaimer 1/9/19: Due to time constraints and two other group members with minimal contribution, there are a handful of logic errors 
+#on the reading frames and repetitive code in the subroutines that needs to be consolidated. A future build would pull the "split into codons"
+#and parsing loops from each subroutine and create a single subroutine with that information, which would shift the start point
+#based on the ORF indicated***
+
+#GOAL: Write a Perl program called orfs to find all the open reading frames (ORFs) in the input sequence.
+#INPUT:
+#The program will take in as input a file, which will contain any number of DNA sequences in the FASTA format:
+#- A line beginning with a ">" is the header line for the next sequence
+#- All lines after the header contain sequence data.
+#- There will be any number of sequences per file.
+#- Sequences may be split over many lines.
+#- Sequence data may be upper or lower case.
+#- Sequence data may contain white space, which should be ignored.
+#Ask the user for the minimum ORF to search for. The default is 50, which means your program should print out all ORFs with at least 50 bases.
+#OUTPUT: 
+#Print your output in FASTA format, with one header line for each ORF, followed by the DNA in the ORF. The header should be the same as the header in the input file, followed by a bar "|" followed by
+#FRAME = POS =
+#LEN = , where is the frame number (1-6)
+#is the genomic position of the start of the ORF (left end is base 1)
+#is the length of the ORF (in bases)
+#If N = 4, 5 or 6, then P should be a negative number that indicates the
+#position of the start of the ORF from the right end of the sequence.
+#The DNA in the ORF should be printed out with a space between each codon, and no more than 15 codons per line.
+#For example:
+#>gi|1786181| Escherichia coli K-12 | FRAME = 1 POS = 5215 LEN = 138
+#ATG ATA AAA GGA GTA ACC TGT GAA AAA GAT GCA ATC TAT CGT ACT
+#CGC ACT TTC CCT GGT TCT GGT CGC TCC CAT GGC AGC ACA GGC TGC
+#GGA AAT TAC GTT AGT CCC GTC AGT AAA ATT ACA GAT AGG CGA TCG
+#TGA
+ 
+#Worked Example:
+#Example Input:
+#> sequence 1ATGCTACCGTAGTGAG
+#> sequence 2
+#AATTACTAATCAGCCCATGATCATAACATAA
+#CTGTGTATGTCTTAGAGGACCAAACCCCCCTCCTTCC
+#Example Output (looking for ORFs of any size):
+#> sequence 1 | FRAME = 1 POS = 1 LEN = 12
+#ATG CTA CCG TAG 
+#> sequence 2 | FRAME = 2 POS = 17 LEN = 15
+#ATG ATC ATA ACA TAA 
+#> sequence 2 | FRAME = 2 POS = 38 LEN = 9
+#ATG TCT TAG 
+#> sequence 2 | FRAME = 4 POS = -40 LEN = 9
+#ATG TTA TGA 
+#> sequence 2 | FRAME = 6 POS = -45 LEN = 15
+#ATG ATC ATG GGC TGA
+
+
+
 use strict;
 
 #Initialize Variables
