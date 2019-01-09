@@ -68,7 +68,7 @@ my $framelength = '';
 my $framenum = '';
 
 
-
+#Note: File Name should be passed to program as command line argument
 #Pass Array, Sequence, and Filename Variables to Parsing Subroutine
 FASTA_PARSE(\@FASTAFile,$sequence);
 
