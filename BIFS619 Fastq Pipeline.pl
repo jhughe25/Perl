@@ -53,6 +53,7 @@ sub topHat2 {
     #Change working directory to fileTestOutput
     chdir $outDirectory;
     
+    #Future Improvement: remove the hard-coded file path for the output
     for ($n = 0; $n < @fileList1; $n++)
     {
         $counter ++;
